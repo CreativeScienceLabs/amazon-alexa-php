@@ -28,7 +28,7 @@ function helloWorldIntentHandler ( $endpoint )
     echo $endpoint->response()->speak('Hello World!');
 }
 
-$endpoint->addHandler('HelloWorldIntent', 'helloWorldintentHandler' );
+$endpoint->addHandler('HelloWorldIntent', 'helloWorldIntentHandler' );
 ```
 
 Assuming you registered in the Amazon Skill Builder the **HelloWorldIntent**, when 
