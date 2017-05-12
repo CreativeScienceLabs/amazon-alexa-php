@@ -5,9 +5,9 @@ in the future).
 
 ## Usage
 
-When you configure an endpoint in Amazon Developer portal for your custom skill. You
-will receive a launch request or an intent requested by the user. You can handle 
-them by initializing a new Endpoint:
+When you configure an endpoint in Amazon Developer portal for your custom skill, you
+will receive launch requests or intent requests by Alexa. You can handle them by 
+initializing a new Endpoint:
 
 ```php
 use CreativeScience\Alexa\Skill\Endpoint;
