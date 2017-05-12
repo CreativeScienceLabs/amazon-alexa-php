@@ -1,0 +1,26 @@
+{
+  "session": {
+    "sessionId": "SessionId.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "application": {
+      "applicationId": "amzn1.ask.skill.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    },
+    "attributes": {
+      "sampleAttribute": true
+    },
+    "user": {
+      "userId": "amzn1.ask.account.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "locale": "en-US",
+    "timestamp": "%%now%%",
+    "intent": {
+      "name": "AMAZON.HelpIntent",
+      "slots": {}
+    }
+  },
+  "version": "1.0"
+}

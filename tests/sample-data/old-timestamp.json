@@ -1,0 +1,20 @@
+{
+  "session": {
+    "sessionId": "SessionId.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "application": {
+      "applicationId": "amzn1.ask.skill.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "LaunchRequest",
+    "requestId": "EdwRequestId.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "locale": "en-US",
+    "timestamp": "2000-01-01T00:00:00Z"
+  },
+  "version": "1.0"
+}

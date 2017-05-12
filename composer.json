@@ -1,0 +1,23 @@
+{
+    "name": "creativescience/amazon-alexa",
+    "description": "Amazon Alexa development kit for PHP",
+    "type": "library",
+    "licence": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Javier Toledo",
+            "email": "javier@creativesciencelabs.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7.0"
+    },
+    "autoload": {
+        "psr-4" : {
+            "CreativeScience\\Alexa\\" : "src/"
+        }
+    }
+}
