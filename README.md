@@ -48,7 +48,7 @@ class MyObject
 }
 
 $object = new MyObject;
-$endpoint->addHandler( 'YourIntentName', array( $object, 'myIntentHandler) );
+$endpoint->addHandler( 'YourIntentName', array( $object, 'myIntentHandler' ) );
 ```
 
 ### Handling other events
