@@ -98,7 +98,7 @@ class Endpoint
                 $eventName = $this->request->intent['name'];
                 break;
         }
-        $this->call( $eventName );
+        return $this->call( $eventName );
 
     }
 
@@ -130,7 +130,7 @@ class Endpoint
             throw new \RuntimeException('No \'Unhandled\' callback defined for request: ' . $eventName);
         }
 
-        call_user_func( $callback, $this);
+        return call_user_func( $callback, $this);
     }
 
     public function setRequest(Request $request = null)
