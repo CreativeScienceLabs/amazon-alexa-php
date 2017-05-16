@@ -52,7 +52,14 @@ class Request
      * @throws \UnexpectedValueException on json or timestamp validation error
      * @return \CreativeScience\Alexa\Skill\Request
      */
-    public static function create( $rawData ) {
+    public static function create( $rawData = null )
+    {
+
+        if (empty($rawData))
+        {
+            $rawData = file_get_contents('php://input');
+        }
+
         $data = \json_decode( $rawData, true );
 
         if (JSON_ERROR_NONE !== \json_last_error())

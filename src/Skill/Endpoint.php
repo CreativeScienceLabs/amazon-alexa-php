@@ -14,14 +14,16 @@ namespace CreativeScience\Alexa\Skill;
  */
 class Endpoint
 {
-    protected $appId;
+    public $appId;
 
     protected $handlers = [];
+
+    protected $observer = null;
 
     /**
      * @var Request The handled request
      */
-    protected $request;
+    public $request = null;
     /**
      * @var The response for the handled request
      */
@@ -56,14 +58,27 @@ class Endpoint
         $this->handlers[ $eventName ] = $callback;
     }
 
-    public function execute( $rawData )
+    public function addObserver( $observer )
     {
-        if (empty($rawData))
+        if ( !is_object ( $observer ))
         {
-            $rawData = file_get_contents('php://input');
+            throw new \InvalidArgumentException('Observer is not an object');
         }
 
-        $this->request = Request::create($rawData);
+        $this->observer = $observer;
+    }
+
+    public function execute( Request $request = null )
+    {
+
+        if (null === $request)
+        {
+            $this->request = $this->request ?: Request::create();
+        }
+        else
+        {
+            $this->request = $request;
+        }
 
         if ($this->appId != $this->request->appId)
         {
@@ -89,27 +104,39 @@ class Endpoint
 
     public function call( $eventName )
     {
-        if ( !isset( $this->handlers[$eventName]) )
+        $callback = null;
+
+        $lcfirstObserverCallback = [ $this->observer, lcfirst( $eventName) ];
+        $observerCallback = [ $this->observer, $eventName ];
+
+        if ( is_callable($lcfirstObserverCallback) )
         {
-            $eventName = self::UNHANDLED_REQUEST;
+            $callback = $lcfirstObserverCallback;
+        }
+        elseif ( is_callable($observerCallback) )
+        {
+            $callback = $observerCallback;
+        }
+        elseif ( isset( $this->handlers[$eventName]) )
+        {
+            $callback = $this->handlers[$eventName];
+        }
+        elseif ( isset( $this->handlers[self::UNHANDLED_REQUEST]) )
+        {
+            $callback = $this->handlers[self::UNHANDLED_REQUEST];
         }
 
-        if ( !isset( $this->handlers[$eventName]) ) {
+        if ( null === $callback ) {
             throw new \RuntimeException('No \'Unhandled\' callback defined for request: ' . $eventName);
         }
+
+        call_user_func( $callback, $this);
     }
 
-    public function getAppId()
+    public function setRequest(Request $request = null)
     {
-        return $this->appId;
+        $this->request = isNull($request) ? Request::create() : $request;
     }
-
-    public function setAppId( $appId )
-    {
-        $this->appId = $appId;
-    }
-
-
     /**
      * @return Response
      */

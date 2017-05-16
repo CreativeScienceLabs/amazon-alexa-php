@@ -14,7 +14,7 @@ class Response
     const VERSION = '1.0';
 
     protected $response;
-    protected $sessionAttributes = [];
+    public $sessionAttributes = [];
     protected $directives = [];
 
     public function __construct()
