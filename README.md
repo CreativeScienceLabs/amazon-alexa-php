@@ -29,13 +29,18 @@ function helloWorldIntentHandler ( $endpoint )
 }
 
 $endpoint->addHandler('HelloWorldIntent', 'helloWorldIntentHandler' );
+ 
+$endpoint->execute();
 ```
 
 Assuming you registered in the Amazon Skill Builder the **HelloWorldIntent**, when 
 Alexa asks to your endpoint for that intent, your function will be called and you
 will instruct Alexa to say "Hello World!" back to the user.
 
-The add handler receives any callable function or method, so you can also use object
+It's **important** to note the execute call. This will actually do the whole process
+of creating a Request object, inspecting it and calling the appropiate handler.
+
+The `$endpoint->addHandler` receives any callable function or method, so you can also use object
 or class methods to handle the different events:
 
 ```php
