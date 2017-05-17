@@ -62,6 +62,18 @@ class Response
         return $this;
     }
 
+    public function askForPermissions ( $permissions = [] ) {
+        if (!is_array($permissions) && is_string($permissions)) {
+            $permissions = [ $permissions ];
+        }
+        $this->response['card'] = [
+            'type' => 'AskForPermissionsConsent',
+            'permissions' => $permissions,
+        ];
+        $this->response['shouldEndSession'] = true;
+        return $this;
+    }
+
     public function linkAccountCard( ) {
         $this->response['card'] = [ 'type' => 'LinkAccount' ];
         return $this;
