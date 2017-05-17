@@ -99,7 +99,7 @@ class Request
             $this->data['user']     = $data['context']['System']['user'];
 
             $this->data['device']   = $data['context']['System']['device'];
-            $this->data['apiEndpoint'] = $data['context']['apiEndpoint'];
+            $this->data['apiEndpoint'] = $data['context']['System']['apiEndpoint'];
         }
 
         if ( isset( $data['session']))
