@@ -108,7 +108,7 @@ class Request
 
             $this->data['sessionId']     = $data['session']['sessionId'];
             $this->data['isNewSession']  = $data['session']['new'];
-            $this->data['attributes']    = $data['session']['attributes'];
+            $this->data['attributes']    = @$data['session']['attributes'] ?: [];
         }
 
         $this->data['type'] = @$data['request']['type'];
