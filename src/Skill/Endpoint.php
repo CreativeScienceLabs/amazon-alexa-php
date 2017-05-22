@@ -106,28 +106,54 @@ class Endpoint
     {
         $callback = null;
 
-        $lcfirstObserverCallback = [ $this->observer, lcfirst( $eventName) ];
-        $observerCallback = [ $this->observer, $eventName ];
+        if ( null !== $this->observer ) {
 
-        if ( is_callable($lcfirstObserverCallback) )
-        {
-            $callback = $lcfirstObserverCallback;
-        }
-        elseif ( is_callable($observerCallback) )
-        {
-            $callback = $observerCallback;
-        }
-        elseif ( isset( $this->handlers[$eventName]) )
-        {
-            $callback = $this->handlers[$eventName];
-        }
-        elseif ( isset( $this->handlers[self::UNHANDLED_REQUEST]) )
-        {
-            $callback = $this->handlers[self::UNHANDLED_REQUEST];
-        }
+            $possibleMethodNames = [];
 
+            if (0 === strpos($eventName, 'AMAZON.'))
+            {
+                $amazonMethodName =  substr($eventName, 7);
+                $possibleMethodNames = [
+                    'amazon' . $amazonMethodName,
+                    'AMAZON' . $amazonMethodName,
+                    lcfirst($amazonMethodName),
+                    $amazonMethodName,
+                ];
+            }
+
+            $possibleMethodNames[] =  lcfirst($eventName);
+            $possibleMethodNames[] = $eventName;
+
+            foreach( $possibleMethodNames as $methodName )
+            {
+                if ( method_exists($this->observer, $methodName ) && is_callable( [$this->observer, $methodName] ))
+                {
+                    $callback = [ $this->observer, $methodName ];
+                    break;
+                }
+            }
+
+            // Check for magic method __call implementation
+            if ( null === $callback && is_callable( $this->observer, $eventName ))
+            {
+                $callback = [ $this->observer, $eventName ];
+            }
+
+        }
+        // No observer or no callback found in observer, trying with regular handlers.
         if ( null === $callback ) {
-            throw new \RuntimeException('No \'Unhandled\' callback defined for request: ' . $eventName);
+            if ( isset( $this->handlers[$eventName]) )
+            {
+                $callback = $this->handlers[$eventName];
+            }
+            elseif ( isset( $this->handlers[self::UNHANDLED_REQUEST]) )
+            {
+                $callback = $this->handlers[self::UNHANDLED_REQUEST];
+            }
+            else
+            {
+                throw new \RuntimeException('No \'Unhandled\' callback defined for request: ' . $eventName);
+            }
         }
 
         return call_user_func( $callback, $this);
